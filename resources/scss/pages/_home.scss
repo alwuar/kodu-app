@@ -1,0 +1,209 @@
+@use "../abstracts" as *;
+
+// Hero
+.hero {
+    background: $ink;
+    color: $white;
+
+    &__inner {
+        display: grid;
+        align-items: center;
+        gap: 40px;
+        padding-top: 40px;
+        padding-bottom: 72px;
+
+        @include up(xl) {
+            grid-template-columns: 700px 1fr;
+            padding-top: 60px;
+            padding-bottom: 154.5px;
+        }
+    }
+
+    &__kicker {
+        font-size: 23px;
+        line-height: 29.9px;
+        letter-spacing: -.006em;
+
+        @include down(md) {
+            font-size: 16px;
+            line-height: 22px;
+        }
+    }
+
+    &__title {
+        max-width: 660px;
+        margin-top: 8px;
+        font-size: 60px;
+        font-weight: 700;
+        line-height: 77px;
+        letter-spacing: -.005em;
+
+        @include down(xl) {
+            font-size: 50px;
+            line-height: 1.22;
+        }
+
+        @include down(md) {
+            font-size: 36px;
+        }
+    }
+
+    &__text {
+        max-width: 660px;
+        margin-top: 15px;
+        font-size: 23px;
+        line-height: 29px;
+        letter-spacing: -.006em;
+
+        @include down(md) {
+            font-size: 17px;
+            line-height: 24px;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px 25.5px;
+        margin-top: 30.7px;
+    }
+
+    &__media .img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+// Por qué Kodú
+.why {
+    padding-top: 104.8px;
+
+    @include down(md) {
+        padding-top: 64px;
+    }
+
+    &__title {
+        padding-left: 29px;
+
+        @include down(lg) {
+            padding-left: 0;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        gap: 40px;
+        margin-top: 61.6px;
+        padding-left: 26px;
+
+        @include up(md) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        @include up(xl) {
+            gap: 45.5px;
+        }
+
+        @include down(lg) {
+            padding-left: 0;
+        }
+
+        @include down(md) {
+            margin-top: 36px;
+        }
+    }
+}
+
+// Separaciones de la banda de distribuidores en cada página
+.dealer-cta-section {
+    &--home {
+        padding-top: 141.2px;
+    }
+
+    &--catalog {
+        padding-top: 151px;
+    }
+
+    &--product {
+        padding-top: 127px;
+        padding-bottom: 127px;
+    }
+
+    &--contact {
+        padding-top: 135px;
+        padding-bottom: 135px;
+    }
+
+    @include down(md) {
+        &--home,
+        &--catalog,
+        &--product,
+        &--contact {
+            padding-top: 72px;
+        }
+
+        &--product,
+        &--contact {
+            padding-bottom: 72px;
+        }
+    }
+}
+
+// Carrusel de martillos
+.product-carousel {
+    padding-top: 124.8px;
+
+    &__text {
+        margin-top: 14.6px;
+    }
+
+    .carousel {
+        margin-top: 61px;
+    }
+
+    @include down(md) {
+        padding-top: 72px;
+
+        .carousel {
+            margin-top: 32px;
+        }
+    }
+}
+
+// Servicios
+.services {
+    &--home {
+        padding-top: 135.8px;
+        padding-bottom: 144px;
+    }
+
+    &--catalog {
+        padding-top: 109.8px;
+        padding-bottom: 220px;
+    }
+
+    &__grid {
+        display: grid;
+        gap: 40px;
+        margin-top: 75.6px;
+
+        @include up(md) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+    }
+
+    @include down(md) {
+        &--home,
+        &--catalog {
+            padding-top: 72px;
+            padding-bottom: 80px;
+        }
+
+        &__grid {
+            margin-top: 36px;
+        }
+    }
+}

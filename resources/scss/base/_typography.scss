@@ -1,0 +1,28 @@
+@use "../abstracts" as *;
+
+// Título rojo de sección ("MARTILLOS HIDRÁULICOS", "NUESTROS SERVICIOS")
+.section-title {
+    @include uppercase-heading(23px);
+    color: $red;
+    letter-spacing: 0;
+
+    a {
+        color: inherit;
+    }
+
+    @include down(md) {
+        font-size: 20px;
+    }
+}
+
+// Títulos negros de bloque ("FICHA TÉCNICA", "TAL VES PODRÍA INTERESARTE")
+.h-block {
+    @include uppercase-heading(20px, 600);
+    color: $black;
+}
+
+.lead-sm {
+    max-width: 680px;
+    font-size: 14px;
+    line-height: 18px;
+}

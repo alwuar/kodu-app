@@ -1,0 +1,175 @@
+@use "../abstracts" as *;
+
+.filters {
+    background: $surface;
+
+    &__form {
+        padding: 44px 36.5px 37px 34px;
+    }
+
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title,
+    &__legend {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 18px;
+        text-transform: uppercase;
+    }
+
+    &__close {
+        display: none;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    &__group {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        min-width: 0;
+
+        &:first-of-type {
+            margin-top: 29.8px;
+        }
+
+        & + & {
+            margin-top: 29px;
+            padding-top: 30px;
+            border-top: 1px solid $line;
+        }
+    }
+
+    &__legend {
+        float: left;
+        width: 100%;
+        margin-bottom: 21.2px;
+
+        + * {
+            clear: left;
+        }
+    }
+}
+
+// Checkbox
+.check {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+
+    & + & {
+        margin-top: 14px;
+    }
+
+    &__input {
+        appearance: none;
+        flex-shrink: 0;
+        width: 17px;
+        height: 17px;
+        margin: .5px 0 0;
+        border: 1.5px solid $black;
+        border-radius: 3px;
+        background: $white center / 11px no-repeat;
+        cursor: pointer;
+        transition: background-color .15s $ease, border-color .15s $ease;
+
+        &:checked {
+            border-color: $red;
+            background-color: $red;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5 5 9.5 10 3' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+        &:focus-visible {
+            outline: 2px solid $red;
+            outline-offset: 2px;
+        }
+    }
+
+    &__label {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+
+// Rango doble de tonelaje
+.range {
+    --from: 0%;
+    --to: 100%;
+    position: relative;
+    top: -12px;
+    height: 20px;
+    margin-bottom: -5px;
+
+    &__track {
+        position: absolute;
+        top: 7px;
+        left: 0;
+        right: 0;
+        height: 6px;
+        border-radius: 3px;
+        background: $track;
+    }
+
+    &__fill {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: var(--from);
+        right: calc(100% - var(--to));
+        border-radius: 3px;
+        background: $red;
+    }
+
+    &__input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 20px;
+        margin: 0;
+        appearance: none;
+        background: none;
+        pointer-events: none;
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid $red;
+            border-radius: 50%;
+            background: $white;
+            cursor: grab;
+            pointer-events: auto;
+        }
+
+        &::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border: 2px solid $red;
+            border-radius: 50%;
+            background: $white;
+            cursor: grab;
+            pointer-events: auto;
+        }
+
+        &:focus-visible::-webkit-slider-thumb {
+            box-shadow: 0 0 0 3px rgba($red, .3);
+        }
+    }
+
+    &__output {
+        position: absolute;
+        top: 24px;
+        right: 0;
+        font-size: 11px;
+        color: $muted;
+    }
+}

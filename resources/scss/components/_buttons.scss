@@ -1,0 +1,103 @@
+@use "../abstracts" as *;
+
+.btn-k {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: $radius-sm;
+    background: $red;
+    color: $white;
+    font-family: inherit;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .2s $ease, color .2s $ease, border-color .2s $ease, transform .2s $ease;
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    // Tamaños
+    &--lg {
+        height: 38.5px;
+        padding: 0 15px;
+        font-size: 23px;
+        letter-spacing: -.006em;
+
+        @include down(md) {
+            height: 36px;
+            padding: 0 14px;
+            font-size: 18px;
+        }
+    }
+
+    &--md {
+        height: 37.5px;
+        padding: 0 16px;
+        border-radius: $radius-md;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    &--sm {
+        height: 25.5px;
+        padding: 0 15px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    // Variantes
+    &--primary {
+        @include hover {
+            background: $red-dark;
+        }
+    }
+
+    &--outline {
+        background: transparent;
+        border: 2px solid $red;
+        box-sizing: content-box;
+
+        &.btn-k--lg {
+            padding: 0 15px;
+        }
+
+        @include hover {
+            background: $red;
+        }
+    }
+
+    &--dark {
+        background: $black;
+
+        @include hover {
+            background: #333;
+        }
+    }
+
+    @include focus-ring($red);
+}
+
+.link-arrow {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 15.6px;
+
+    &__icon {
+        display: inline-block;
+        transition: transform .2s $ease;
+    }
+
+    @include hover {
+        .link-arrow__icon {
+            transform: translateX(3px);
+        }
+    }
+}

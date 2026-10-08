@@ -1,0 +1,71 @@
+@use "../abstracts" as *;
+
+.feature {
+    &__icon {
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-left: -2px;
+    }
+
+    &__title {
+        @include uppercase-heading(23px);
+        margin-top: 14px;
+        line-height: 27.6px;
+
+        @include down(md) {
+            font-size: 20px;
+        }
+    }
+
+    &__text {
+        max-width: 290px;
+        margin-top: 11px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+
+.service {
+    &__icon {
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+
+    &__title {
+        @include uppercase-heading(20px, 600);
+        margin-top: 16.9px;
+        line-height: 24px;
+
+        @include down(md) {
+            font-size: 18px;
+        }
+    }
+
+    &__text {
+        max-width: 345px;
+        margin-top: 2.8px;
+
+        // Anchos de caja de texto del diseño
+        @include up(xl) {
+            .service:nth-child(1) & { max-width: 290px; }
+            .service:nth-child(2) & { max-width: 300px; }
+            .service:nth-child(3) & { max-width: 345px; }
+        }
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    &__link {
+        display: inline-block;
+        margin-top: 17.3px;
+        font-size: 14px;
+        line-height: 18px;
+        transition: color .2s $ease;
+
+        @include hover {
+            color: $red;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+@use "sass:map";
+
+// Mismos breakpoints que Bootstrap
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+@mixin up($bp) {
+    @media (min-width: map.get($breakpoints, $bp)) {
+        @content;
+    }
+}
+
+@mixin down($bp) {
+    @media (max-width: map.get($breakpoints, $bp) - .02px) {
+        @content;
+    }
+}
+
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
+@mixin focus-ring($color: currentColor) {
+    &:focus-visible {
+        outline: 2px solid $color;
+        outline-offset: 3px;
+    }
+}
+
+@mixin uppercase-heading($size, $weight: 700) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: 1.2;
+    text-transform: uppercase;
+}

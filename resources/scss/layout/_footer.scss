@@ -1,0 +1,82 @@
+@use "../abstracts" as *;
+
+.site-footer {
+    background: $footer;
+    color: $footer-text;
+
+    &__grid {
+        display: grid;
+        gap: 40px 24px;
+        padding-top: 56px;
+        padding-bottom: 64px;
+
+        @include up(md) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @include up(lg) {
+            grid-template-columns: 334.5fr 236fr 306fr 203.5fr;
+            gap: 0;
+            padding-top: 59px;
+            padding-bottom: 123px;
+        }
+    }
+
+    &__logo {
+        width: 147px;
+        height: auto;
+        margin-top: 2.5px;
+
+        @include up(lg) {
+            margin-left: -5px;
+        }
+    }
+
+    &__text {
+        max-width: 220px;
+        margin-top: 11.5px;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    &__social {
+        margin-top: 28px;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20.8px;
+        color: $footer-text;
+    }
+
+    &__list {
+        margin-top: 24.8px;
+        font-size: 14px;
+        line-height: 31px;
+
+        a {
+            transition: color .2s $ease;
+
+            @include hover {
+                color: $white;
+            }
+        }
+    }
+}
+
+.social {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    a {
+        display: block;
+        line-height: 0;
+        transition: color .2s $ease, transform .2s $ease;
+
+        @include hover {
+            color: $red;
+        }
+    }
+}

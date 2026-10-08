@@ -1,0 +1,31 @@
+@use "../abstracts" as *;
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 11px;
+
+    .tag {
+        display: inline-flex;
+        align-items: center;
+        height: 17.5px;
+        padding: 0 7px;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: -.02em;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    &--solid .tag {
+        background: $red;
+        color: $white;
+    }
+
+    &--outline .tag {
+        height: 19.5px;
+        border: 1px solid $red;
+        border-radius: $radius-sm;
+        color: $red;
+    }
+}

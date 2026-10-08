@@ -1,0 +1,46 @@
+@use "../abstracts" as *;
+
+// Carrusel horizontal: arranca alineado al contenedor y se desborda a la derecha
+.carousel {
+    &__track {
+        --start: max(var(--gutter), (100vw - #{$container-max}) / 2);
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 255px;
+        gap: 21px;
+        padding: 0 var(--gutter) 0 var(--start);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--start);
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $red;
+            outline-offset: 4px;
+        }
+
+        @include down(sm) {
+            grid-auto-columns: 78%;
+            gap: 14px;
+        }
+    }
+
+    &__item {
+        scroll-snap-align: start;
+    }
+
+    &.is-dragging &__track {
+        scroll-snap-type: none;
+        cursor: grabbing;
+
+        a {
+            pointer-events: none;
+        }
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Si cambian los assets compilados, Turbo hace una recarga completa
+        Vite::useScriptTagAttributes(['data-turbo-track' => 'reload']);
+        Vite::useStyleTagAttributes(['data-turbo-track' => 'reload']);
     }
 }

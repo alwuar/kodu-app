@@ -1,0 +1,30 @@
+// Bootstrap (solo lo necesario)
+@use "vendor/bootstrap";
+
+// Base
+@use "base/fonts";
+@use "base/base";
+@use "base/typography";
+
+// Layout
+@use "layout/container";
+@use "layout/header";
+@use "layout/footer";
+
+// Componentes
+@use "components/buttons";
+@use "components/tags";
+@use "components/product-card";
+@use "components/feature";
+@use "components/dealer-cta";
+@use "components/breadcrumb";
+@use "components/carousel";
+@use "components/filters";
+@use "components/specs";
+@use "components/form";
+
+// Páginas
+@use "pages/home";
+@use "pages/catalog";
+@use "pages/product";
+@use "pages/contact";

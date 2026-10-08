@@ -1,0 +1,149 @@
+@use "../abstracts" as *;
+
+.product {
+    &__hero {
+        display: grid;
+        gap: 32px;
+        margin-top: 40px;
+
+        @include up(lg) {
+            grid-template-columns: 418px 1fr;
+            gap: 100px;
+            margin-top: 0;
+        }
+    }
+
+    &__media {
+        display: flex;
+        justify-content: center;
+        padding-top: 77px;
+
+        .img {
+            width: auto;
+            height: 325px;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 325px;
+        }
+
+        @include down(lg) {
+            padding-top: 0;
+
+            .img {
+                height: 260px;
+            }
+        }
+    }
+
+    &__info {
+        max-width: 360px;
+        padding-top: 62px;
+
+        @include down(lg) {
+            max-width: none;
+            padding-top: 0;
+        }
+    }
+
+    &__kicker {
+        font-size: 12px;
+        line-height: 15.6px;
+        color: $red;
+    }
+
+    &__title {
+        margin-top: 12px;
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 62px;
+
+        @include down(md) {
+            font-size: 40px;
+            line-height: 48px;
+        }
+    }
+
+    &__summary {
+        margin-top: 12.2px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    &__tags {
+        margin-top: 21.5px;
+    }
+
+    &__buy {
+        margin-top: 33.5px;
+    }
+
+    &__flash {
+        margin-top: 12px;
+    }
+
+    &__note {
+        margin-top: 16.5px;
+        font-size: 12px;
+        line-height: 15.6px;
+    }
+
+    &__download {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 16.1px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 15.6px;
+        transition: color .2s $ease;
+
+        .icon {
+            margin-left: -2px;
+        }
+
+        @include hover {
+            color: $red;
+        }
+    }
+
+    .specs {
+        padding-top: 63px;
+
+        @include down(md) {
+            padding-top: 48px;
+        }
+    }
+}
+
+.related {
+    padding-top: 123.6px;
+
+    @include down(md) {
+        padding-top: 64px;
+    }
+
+    &__title {
+        margin-left: 1px;
+    }
+
+    &__grid {
+        display: grid;
+        gap: 20px;
+        margin-top: 62.4px;
+
+        @include up(md) {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        @include up(xl) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 38px;
+        }
+
+        @include down(md) {
+            margin-top: 32px;
+        }
+    }
+}

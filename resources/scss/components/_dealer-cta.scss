@@ -1,0 +1,39 @@
+@use "../abstracts" as *;
+
+.dealer-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 40px 24px;
+    background: $red;
+    color: $white;
+
+    @include up(lg) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 202px;
+        padding: 0 66.5px 0 26px;
+    }
+
+    &__kicker {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 15.6px;
+        text-transform: uppercase;
+    }
+
+    &__title {
+        margin-top: 12.6px;
+        @include uppercase-heading(20px, 600);
+        line-height: 24px;
+    }
+
+    &__text {
+        margin-top: 13px;
+        font-size: 12px;
+        line-height: 15.6px;
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,99 @@
+@use "../abstracts" as *;
+
+.contact {
+    padding-top: 110px;
+
+    @include down(md) {
+        padding-top: 40px;
+    }
+
+    &__layout {
+        display: grid;
+        gap: 48px;
+
+        @include up(lg) {
+            grid-template-columns: 321px 1fr;
+            gap: 0;
+            padding-left: 73px;
+            padding-right: 27px;
+        }
+
+        @include down(lg) {
+            > :first-child {
+                order: 2;
+            }
+        }
+    }
+
+    &__info {
+        padding-top: 18px;
+        color: $slate;
+    }
+
+    &__list {
+        display: grid;
+        gap: 24px;
+        margin: 0;
+
+        dt {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 20.8px;
+        }
+
+        dd {
+            margin: 6.2px 0 0;
+            font-size: 16px;
+            line-height: 20.8px;
+        }
+
+        a {
+            transition: color .2s $ease;
+
+            @include hover {
+                color: $red;
+            }
+        }
+    }
+
+    &__social {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 77px;
+
+        @include down(lg) {
+            margin-top: 40px;
+        }
+
+        .social {
+            gap: 15.5px;
+        }
+    }
+
+    &__social-label {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: .1em;
+    }
+}
+
+.contact-form {
+    &__flash {
+        margin-bottom: 24px;
+    }
+
+    &__grid {
+        display: grid;
+        gap: 32px 19.5px;
+
+        @include up(md) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &__submit {
+        width: 100%;
+        margin-top: 31px;
+    }
+}

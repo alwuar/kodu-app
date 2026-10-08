@@ -1,0 +1,111 @@
+@use "../abstracts" as *;
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &__label {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: $label;
+    }
+
+    &__control {
+        width: 100%;
+        height: 38px;
+        padding: 0 13px;
+        border: 1px solid $input-border;
+        border-radius: $radius-md;
+        background: $white;
+        box-shadow: $shadow-input;
+        color: $black;
+        font-family: inherit;
+        font-size: 14px;
+        transition: border-color .15s $ease, box-shadow .15s $ease;
+
+        &::placeholder {
+            color: $placeholder;
+            opacity: 1;
+        }
+
+        &:focus,
+        &:focus-within {
+            border-color: $red;
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba($red, .15);
+        }
+
+        &.is-invalid {
+            border-color: $red;
+        }
+    }
+
+    &__error {
+        font-size: 12px;
+        color: $red;
+    }
+
+    // Teléfono con selector de país
+    &__phone {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    &__select {
+        flex-shrink: 0;
+        width: 71px;
+        height: 100%;
+        padding: 0 0 0 12px;
+        border: 0;
+        border-right: 1px solid #f0f0f0;
+        border-radius: $radius-md 0 0 $radius-md;
+        background: transparent;
+        color: $placeholder;
+        font: inherit;
+        appearance: none;
+        cursor: pointer;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    &__chevron {
+        position: absolute;
+        left: 41px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $placeholder;
+        pointer-events: none;
+    }
+
+    &__phone-input {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        padding: 0 12px 0 0;
+        border: 0;
+        background: transparent;
+        font: inherit;
+
+        &::placeholder {
+            color: $placeholder;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+    }
+}
+
+.flash {
+    padding: 12px 14px;
+    border-left: 3px solid $red;
+    background: #fdf0ed;
+    font-size: 14px;
+    line-height: 1.4;
+}

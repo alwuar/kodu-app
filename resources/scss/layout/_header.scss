@@ -1,0 +1,142 @@
+@use "../abstracts" as *;
+
+.site-header {
+    position: relative;
+    z-index: 50;
+    background: $white;
+    color: $black;
+
+    &--dark {
+        background: $ink;
+        color: $white;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+
+        @include up(xl) {
+            align-items: flex-start;
+            height: $header-height;
+            padding-top: 29px;
+        }
+    }
+
+    &__brand {
+        display: block;
+        flex-shrink: 0;
+        line-height: 0;
+
+        .logo {
+            width: 124px;
+            height: auto;
+
+            @include up(xl) {
+                width: 148px;
+            }
+        }
+    }
+
+    &__toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        margin-right: -10px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+
+        .icon-close {
+            display: none;
+        }
+
+        &[aria-expanded="true"] {
+            .icon-open {
+                display: none;
+            }
+
+            .icon-close {
+                display: block;
+            }
+        }
+
+        @include up(xl) {
+            display: none;
+        }
+    }
+}
+
+.site-nav {
+    &__link {
+        position: relative;
+        display: block;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: .02em;
+        white-space: nowrap;
+        transition: color .2s $ease;
+
+        @include hover {
+            color: $red;
+        }
+
+    }
+
+    // Escritorio: links en línea
+    @include up(xl) {
+        margin-top: 7px;
+
+        &__list {
+            display: flex;
+            gap: 21.5px;
+        }
+    }
+
+    // Móvil y tablet: panel desplegable
+    @include down(xl) {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-8px);
+        background: inherit;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, .12);
+        transition: opacity .2s $ease, transform .2s $ease, visibility 0s linear .2s;
+
+        .site-header--dark & {
+            background: $ink;
+        }
+
+        .site-header--light & {
+            background: $white;
+            border-top: 1px solid #eee;
+        }
+
+        &.is-open {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+            transition: opacity .2s $ease, transform .2s $ease;
+        }
+
+        &__list {
+            max-width: calc(#{$container-max} + var(--gutter) * 2);
+            margin-inline: auto;
+            padding: 8px var(--gutter) 20px;
+        }
+
+        &__link {
+            padding: 13px 0;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(127, 127, 127, .2);
+        }
+    }
+}
