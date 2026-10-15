@@ -19,6 +19,9 @@ return [
         'email' => 'ventas@koduattachments.mx',
         'phone' => '999 234 1212',
         'phone_e164' => '+529992341212',
+        // Botón "Habla con un asesor" (WhatsApp): número con lada de país, sin + ni espacios
+        'whatsapp' => env('KODU_WHATSAPP', '529992341212'),
+        'whatsapp_text' => 'Hola, me gustaría hablar con un asesor de KODU.',
         'address' => 'Col. Bojórquez, Mérida, Yuc.',
         'locality' => 'Mérida',
         'region' => 'Yucatán',

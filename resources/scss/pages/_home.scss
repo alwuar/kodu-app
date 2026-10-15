@@ -7,6 +7,11 @@
     background: $ink;
     color: $white;
 
+    // El fondo oscuro (y el video) pasa por debajo de la barra fija
+    .has-hero & {
+        padding-top: var(--header-h);
+    }
+
     // Video de fondo (se cambia desde el panel)
     &__bg {
         position: absolute;

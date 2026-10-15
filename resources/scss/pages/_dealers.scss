@@ -1,7 +1,7 @@
 @use "../abstracts" as *;
 
 .dealers-hero {
-    padding-top: 1px;
+    padding-top: var(--header-h);
     padding-bottom: 96px;
     background: $ink;
     color: $white;

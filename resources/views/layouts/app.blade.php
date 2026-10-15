@@ -21,10 +21,11 @@
 
     @stack('head')
 </head>
-<body class="@yield('body_class')">
+{{-- @section('header', 'dark'): la página empieza con un bloque oscuro que pasa por debajo de la barra --}}
+<body @class([trim($__env->yieldContent('body_class')), 'has-hero' => trim($__env->yieldContent('header')) === 'dark'])>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <x-site.header :variant="trim($__env->yieldContent('header')) ?: 'light'" />
+    <x-site.header />
 
     <main id="contenido">
         @yield('content')

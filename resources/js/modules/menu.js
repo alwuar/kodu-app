@@ -33,4 +33,20 @@ export function initMenu() {
 
     // Que el menú no quede abierto en la copia que Turbo guarda en caché
     document.addEventListener('turbo:before-cache', close);
+
+    // La barra se vuelve más sólida al bajar
+    let ticking = false;
+    const onScroll = () => {
+        document.querySelector('[data-header]')?.classList.toggle('is-scrolled', window.scrollY > 24);
+        ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(onScroll);
+        }
+    }, { passive: true });
+
+    document.addEventListener('turbo:load', onScroll);
 }

@@ -199,7 +199,7 @@
 
     @include up(lg) {
         position: sticky;
-        top: 24px;
+        top: calc(var(--header-h) + 16px);
     }
 
     &__title {
