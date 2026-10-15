@@ -7,8 +7,9 @@
         margin-top: 40px;
 
         @include up(lg) {
-            grid-template-columns: 418px 1fr;
-            gap: 100px;
+            // Proporcional al diseño (418px + 100px + 562px en 1080px)
+            grid-template-columns: 418fr 562fr;
+            gap: 9.26%;
             margin-top: 0;
         }
     }

@@ -128,8 +128,6 @@
         }
 
         &__list {
-            max-width: calc(#{$container-max} + var(--gutter) * 2);
-            margin-inline: auto;
             padding: 8px var(--gutter) 20px;
         }
 

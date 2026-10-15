@@ -20,8 +20,10 @@ $placeholder-img: #d9d9d9;
 $font-family: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
 // Layout
-$container-max: 1080px;
-$gutter-desktop: 100px;
+// Margen lateral en escritorio: 100px a 1280px y crece hasta 200px a 1440px o más.
+// El contenido es fluido; no hay ancho máximo.
+$gutter-desktop-min: 100px;
+$gutter-desktop-max: 200px;
 $gutter-tablet: 48px;
 $gutter-mobile: 20px;
 $header-height: 90px;

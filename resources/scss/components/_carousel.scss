@@ -3,7 +3,7 @@
 // Carrusel horizontal: arranca alineado al contenedor y se desborda a la derecha
 .carousel {
     &__track {
-        --start: max(var(--gutter), (100vw - #{$container-max}) / 2);
+        --start: var(--gutter);
         display: grid;
         grid-auto-flow: column;
         grid-auto-columns: 255px;
