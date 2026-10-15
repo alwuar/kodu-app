@@ -104,8 +104,13 @@
 
 .flash {
     padding: 12px 14px;
-    border-left: 3px solid $red;
-    background: #fdf0ed;
+    border-left: 3px solid #2e7d32;
+    background: #eef6ee;
     font-size: 14px;
     line-height: 1.4;
+
+    &--error {
+        border-left-color: $red;
+        background: #fdf0ed;
+    }
 }

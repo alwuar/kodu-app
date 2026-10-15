@@ -9,6 +9,9 @@ return [
     'locale' => 'es_MX',
     'theme_color' => '#262424',
 
+    // A quién le llegan los avisos de pedidos, distribuidores y contacto
+    'notify_email' => env('KODU_NOTIFY_EMAIL', 'ventas@koduattachments.mx'),
+
     'logo' => 'images/kodu-logo.svg',
     'og_image' => 'images/og-kodu.jpg',
 
@@ -29,28 +32,10 @@ return [
 
     'coverage' => ['Playa del Carmen', 'Mérida', 'Puerto Morelos', 'Pachuca'],
 
-    'nav' => [
-        ['label' => 'Inicio', 'route' => 'home'],
-        ['label' => 'Nosotros', 'route' => 'home', 'fragment' => 'nosotros'],
-        ['label' => 'Martillos hidráulicos', 'route' => 'catalog.index', 'params' => ['category' => 'martillos-hidraulicos']],
-        ['label' => 'Accesorios', 'route' => 'catalog.index', 'params' => ['category' => 'accesorios']],
-        ['label' => 'Distribuidores', 'route' => 'contact', 'query' => ['asunto' => 'distribuidor']],
-        ['label' => 'Contacto', 'route' => 'contact'],
-    ],
-
-    'footer_nav' => [
-        ['label' => 'Inicio', 'route' => 'home'],
-        ['label' => 'Nosotros', 'route' => 'home', 'fragment' => 'nosotros'],
-        ['label' => 'Martillos Hidráulicos', 'route' => 'catalog.index', 'params' => ['category' => 'martillos-hidraulicos']],
-        ['label' => 'Distribuidores', 'route' => 'contact', 'query' => ['asunto' => 'distribuidor']],
-        ['label' => 'Contacto', 'route' => 'contact'],
-    ],
-
     'hero' => [
         'kicker' => 'Aditamentos para maquinaria pesada',
         'title' => 'Aditamentos que aguantan la obra real',
         'text' => 'Martillos hidráulicos, accesorios y refacciones para maquinaria pesada — tecnología mexicana fabricada para rendir.',
-        'image' => null,
     ],
 
     'why' => [
@@ -94,9 +79,31 @@ return [
                 'text' => 'Amplia gama de refacciones para distintos modelos y marcas, con servicio técnico especializado.',
                 'link' => 'Ver refacciones',
                 'route' => 'contact',
-                'query' => ['asunto' => 'refacciones'],
             ],
         ],
+    ],
+
+    'dealers' => [
+        'kicker' => 'Distribuidores',
+        'title' => 'Vende KODU en tu zona',
+        'text' => 'Sumamos distribuidores en todo México. Sin stock mínimo y sin altos volúmenes: tú vendes, nosotros te respaldamos con producto, refacciones y servicio técnico.',
+        'why_title' => '¿Por qué ser distribuidor KODU?',
+        'benefits' => [
+            ['icon' => 'box', 'title' => 'Sin stock mínimo', 'text' => 'Empieza a vender sin invertir en inventario. Pide solo lo que ya tienes vendido.'],
+            ['icon' => 'trending-up', 'title' => 'Márgenes competitivos', 'text' => 'Precios de distribuidor que te dejan ganancia real en cada martillo y accesorio.'],
+            ['icon' => 'shield-check', 'title' => 'Producto que aguanta', 'text' => 'Aditamentos diseñados para la obra real, con garantía y respaldo de marca.'],
+            ['icon' => 'wrench', 'title' => 'Refacciones y servicio', 'text' => 'Refacciones disponibles y servicio técnico especializado para tus clientes.'],
+            ['icon' => 'graduation', 'title' => 'Capacitación', 'text' => 'Te enseñamos el producto, cómo venderlo y cómo instalarlo correctamente.'],
+            ['icon' => 'megaphone', 'title' => 'Material de venta', 'text' => 'Fichas técnicas, fotos y material digital listo para promocionar en tu zona.'],
+        ],
+        'steps_title' => '¿Cómo funciona?',
+        'steps' => [
+            ['title' => 'Envía tu solicitud', 'text' => 'Llena el formulario con tus datos y los de tu empresa.'],
+            ['title' => 'Platicamos', 'text' => 'Un asesor te contacta para conocer tu zona y tu operación.'],
+            ['title' => 'Empieza a vender', 'text' => 'Recibes precios de distribuidor, material de venta y capacitación.'],
+        ],
+        'form_title' => 'Solicitud de distribuidor',
+        'form_text' => 'Déjanos tus datos y te contactamos en menos de 48 horas hábiles.',
     ],
 
     'footer_text' => 'Aditamentos que aguantan la obra real. Marca mexicana, con desarrollo tecnológico en una de las fábricas más importantes del mundo.',

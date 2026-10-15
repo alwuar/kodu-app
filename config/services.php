@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+        'currency' => env('STRIPE_CURRENCY', 'mxn'),
+        // Países a los que se puede enviar (dirección que pide Stripe Checkout)
+        'shipping_countries' => ['MX'],
+    ],
+
 ];

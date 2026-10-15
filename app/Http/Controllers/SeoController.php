@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\Catalog;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Response;
 
 class SeoController extends Controller
 {
     public function sitemap(): Response
     {
-        $urls = collect([route('home'), route('contact')])
-            ->merge(Catalog::categories()->keys()->map(fn (string $slug) => route('catalog.index', $slug)))
-            ->merge(Catalog::products()->pluck('url'));
+        $categories = Category::query()->active()->get();
+
+        $urls = collect([route('home'), route('dealers'), route('contact')])
+            ->merge($categories->map->url())
+            ->merge(
+                Product::query()
+                    ->active()
+                    ->whereIn('category_id', $categories->pluck('id'))
+                    ->with('category')
+                    ->get()
+                    ->map->url()
+            );
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n"
             .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n"
@@ -24,7 +34,7 @@ class SeoController extends Controller
     public function robots(): Response
     {
         $lines = app()->isProduction()
-            ? ['User-agent: *', 'Disallow: /carrito', '', 'Sitemap: '.route('sitemap')]
+            ? ['User-agent: *', 'Disallow: /admin', 'Disallow: /carrito', 'Disallow: /checkout', 'Disallow: /pedido', '', 'Sitemap: '.route('sitemap')]
             : ['User-agent: *', 'Disallow: /'];
 
         return response(implode("\n", $lines)."\n")->header('Content-Type', 'text/plain; charset=UTF-8');

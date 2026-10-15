@@ -2,32 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\Catalog;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class CatalogController extends Controller
 {
-    public function index(string $category): View
+    public function index(Category $category): View
     {
-        $categoryData = Catalog::category($category) ?? abort(404);
-        $products = Catalog::products($category);
+        abort_unless($category->is_active, 404);
+
+        $products = $category->activeProducts()->with('category')->get();
 
         return view('pages.catalog.index', [
-            'category' => $categoryData,
+            'category' => $category,
             'products' => $products,
-            'filters' => Catalog::filters($products),
+            'filters' => $this->filters($products),
         ]);
     }
 
-    public function show(string $category, string $product): View
+    public function show(Category $category, Product $product): View
     {
-        $categoryData = Catalog::category($category) ?? abort(404);
-        $productData = Catalog::product($category, $product) ?? abort(404);
+        abort_unless($category->is_active && $product->is_active, 404);
+
+        $product->setRelation('category', $category);
 
         return view('pages.catalog.show', [
-            'category' => $categoryData,
-            'product' => $productData,
-            'related' => Catalog::related($productData),
+            'category' => $category,
+            'product' => $product,
+            'related' => $category->activeProducts()
+                ->with('category')
+                ->whereKeyNot($product->id)
+                ->limit(3)
+                ->get(),
         ]);
+    }
+
+    /** Solo muestra las opciones de filtro que tienen productos. */
+    protected function filters(Collection $products): array
+    {
+        $tons = config('catalog.tons');
+
+        return [
+            'machine' => collect(config('catalog.machines'))
+                ->only($products->pluck('machine')->filter()->unique()->all())
+                ->all(),
+            'box' => collect(config('catalog.boxes'))
+                ->only($products->pluck('box')->filter()->unique()->all())
+                ->all(),
+            'tons' => [
+                'min' => min($tons['min'], (int) ($products->min('tons_min') ?: $tons['min'])),
+                'max' => max($tons['max'], (int) ($products->max('tons_max') ?: $tons['max'])),
+            ],
+        ];
     }
 }

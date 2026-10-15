@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $category['seo_title'])
-@section('description', $category['seo_description'])
+@section('title', $category->seo_title ?: $category->name)
+@section('description', $category->seo_description ?: Str::limit((string) $category->description, 160))
 @section('body_class', 'page-catalog')
 
 @section('content')
@@ -9,13 +9,13 @@
         <div class="container">
             <x-ui.breadcrumb :items="[
                 ['label' => 'Inicio', 'url' => route('home')],
-                ['label' => $category['name']],
+                ['label' => $category->name],
             ]" />
 
             <header class="catalog__head">
                 <div>
-                    <h1 id="catalog-title" class="section-title">{{ $category['name'] }}</h1>
-                    <p class="lead-sm catalog__text">{{ $category['description'] }}</p>
+                    <h1 id="catalog-title" class="section-title">{{ $category->name }}</h1>
+                    <p class="lead-sm catalog__text">{{ $category->description }}</p>
                 </div>
                 <p class="catalog__count" aria-live="polite">
                     <span data-filters-count>{{ $products->count() }}</span>
@@ -34,15 +34,15 @@
                     <ul class="catalog__grid">
                         @foreach ($products as $product)
                             <li data-product
-                                data-machine="{{ $product['machine'] }}"
-                                data-box="{{ $product['box'] }}"
-                                data-tons-min="{{ $product['tons'][0] }}"
-                                data-tons-max="{{ $product['tons'][1] }}">
+                                data-machine="{{ $product->machine }}"
+                                data-box="{{ $product->box }}"
+                                data-tons-min="{{ $product->tons_min ?? 0 }}"
+                                data-tons-max="{{ $product->tons_max ?? 999 }}">
                                 <x-cards.product :product="$product" variant="light" heading-level="h2" />
                             </li>
                         @endforeach
                     </ul>
-                    <p class="catalog__empty" data-filters-empty hidden>No hay productos con esos filtros.</p>
+                    <p class="catalog__empty" data-filters-empty @if ($products->isNotEmpty()) hidden @endif>No hay productos con esos filtros.</p>
                 </div>
             </div>
         </div>
@@ -56,8 +56,8 @@
     <x-site.json-ld :data="[
         '@context' => 'https://schema.org',
         '@type' => 'CollectionPage',
-        'name' => $category['name'],
-        'description' => $category['seo_description'],
+        'name' => $category->name,
+        'description' => $category->seo_description ?: $category->description,
         'url' => url()->current(),
         'mainEntity' => [
             '@type' => 'ItemList',
@@ -65,8 +65,8 @@
             'itemListElement' => $products->values()->map(fn ($p, $i) => [
                 '@type' => 'ListItem',
                 'position' => $i + 1,
-                'url' => $p['url'],
-                'name' => $p['name'],
+                'url' => $p->url(),
+                'name' => $p->name,
             ])->all(),
         ],
     ]" />

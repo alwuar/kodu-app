@@ -16,8 +16,8 @@
         <nav class="site-footer__col" aria-labelledby="footer-paginas">
             <h2 id="footer-paginas" class="site-footer__title">Páginas</h2>
             <ul class="site-footer__list">
-                @foreach (config('kodu.footer_nav') as $item)
-                    <li><a href="{{ Link::to($item) }}">{{ $item['label'] }}</a></li>
+                @foreach (Link::menu(footer: true) as $item)
+                    <li><a href="{{ $item['url'] }}">{{ $item['label'] }}</a></li>
                 @endforeach
             </ul>
         </nav>

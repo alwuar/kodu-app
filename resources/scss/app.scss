@@ -22,9 +22,12 @@
 @use "components/filters";
 @use "components/specs";
 @use "components/form";
+@use "components/modal";
 
 // Páginas
 @use "pages/home";
 @use "pages/catalog";
 @use "pages/product";
 @use "pages/contact";
+@use "pages/dealers";
+@use "pages/cart";

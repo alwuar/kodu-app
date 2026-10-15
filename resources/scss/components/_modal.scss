@@ -1,0 +1,104 @@
+@use "../abstracts" as *;
+
+// Formulario emergente (<dialog>) de distribuidores
+.modal {
+    width: min(640px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: $black;
+    overflow: visible;
+
+    &::backdrop {
+        background: rgba(20, 18, 18, .65);
+        backdrop-filter: blur(2px);
+    }
+
+    &[open] {
+        animation: modal-in .22s $ease;
+    }
+
+    &__panel {
+        position: relative;
+        max-height: calc(100dvh - 32px);
+        padding: 40px 40px 36px;
+        overflow-y: auto;
+        border-top: 6px solid $red;
+        background: $white;
+
+        @include down(md) {
+            padding: 32px 20px 24px;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: inline-flex;
+        padding: 6px;
+        border: 0;
+        background: none;
+        color: $black;
+        cursor: pointer;
+
+        @include hover {
+            color: $red;
+        }
+    }
+
+    &__kicker {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 15.6px;
+        text-transform: uppercase;
+        color: $red;
+    }
+
+    &__title {
+        margin-top: 8px;
+        @include uppercase-heading(23px);
+    }
+
+    &__text {
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        text-transform: uppercase;
+        color: $muted;
+    }
+
+    &__form {
+        margin-top: 28px;
+
+        .contact-form__grid {
+            gap: 20px 16px;
+        }
+
+        .contact-form__submit {
+            margin-top: 24px;
+        }
+    }
+}
+
+.dealer-form__flash {
+    margin-bottom: 20px;
+}
+
+body.has-modal {
+    overflow: hidden;
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal[open] {
+        animation: none;
+    }
+}

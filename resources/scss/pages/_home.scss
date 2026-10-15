@@ -2,8 +2,37 @@
 
 // Hero
 .hero {
+    position: relative;
+    overflow: hidden;
     background: $ink;
     color: $white;
+
+    // Video de fondo (se cambia desde el panel)
+    &__bg {
+        position: absolute;
+        inset: 0;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba($ink, .92) 0%, rgba($ink, .75) 45%, rgba($ink, .25) 100%);
+
+            @include down(lg) {
+                background: rgba($ink, .72);
+            }
+        }
+    }
+
+    &__video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__inner {
+        position: relative;
+    }
 
     &__inner {
         display: grid;

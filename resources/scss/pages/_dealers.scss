@@ -1,0 +1,136 @@
+@use "../abstracts" as *;
+
+.dealers-hero {
+    padding-top: 1px;
+    padding-bottom: 96px;
+    background: $ink;
+    color: $white;
+
+    &__kicker {
+        margin-top: 56px;
+    }
+
+    &__title,
+    &__text {
+        max-width: 660px;
+    }
+
+    @include down(md) {
+        padding-bottom: 64px;
+
+        &__kicker {
+            margin-top: 32px;
+        }
+    }
+}
+
+.breadcrumb-k--dark {
+    color: $white;
+}
+
+.dealers-why {
+    padding-top: 104px;
+
+    &__grid {
+        display: grid;
+        gap: 48px 32px;
+        margin-top: 61px;
+
+        @include up(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include up(lg) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 56px 45px;
+        }
+    }
+
+    @include down(md) {
+        padding-top: 64px;
+
+        &__grid {
+            margin-top: 36px;
+        }
+    }
+}
+
+.dealers-steps {
+    padding-top: 120px;
+
+    &__list {
+        display: grid;
+        gap: 32px;
+        margin-top: 56px;
+        counter-reset: none;
+
+        @include up(md) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+    }
+
+    &__item {
+        padding-top: 20px;
+        border-top: 3px solid $red;
+    }
+
+    &__num {
+        display: block;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 1;
+        color: $red;
+    }
+
+    .service__title {
+        margin-top: 16px;
+    }
+
+    @include down(md) {
+        padding-top: 72px;
+
+        &__list {
+            margin-top: 32px;
+        }
+    }
+}
+
+.dealers-form {
+    padding-top: 120px;
+    padding-bottom: 140px;
+
+    &__layout {
+        display: grid;
+        gap: 40px;
+
+        @include up(lg) {
+            grid-template-columns: 321fr 659fr;
+            gap: 100px;
+        }
+    }
+
+    &__text {
+        margin-top: 14.6px;
+    }
+
+    &__contact {
+        margin-top: 24px;
+        font-size: 16px;
+        line-height: 28px;
+        color: $slate;
+
+        a {
+            transition: color .2s $ease;
+
+            @include hover {
+                color: $red;
+            }
+        }
+    }
+
+    @include down(md) {
+        padding-top: 72px;
+        padding-bottom: 80px;
+    }
+}

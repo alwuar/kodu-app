@@ -2,28 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactReceived;
+use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Throwable;
 
 class ContactController extends Controller
 {
-    public const SUBJECTS = [
-        'general' => 'Información general',
-        'distribuidor' => 'Quiero ser distribuidor',
-        'refacciones' => 'Refacciones y servicio técnico',
-        'cotizacion' => 'Cotización',
-    ];
-
-    public function show(Request $request): View
+    public function show(): View
     {
-        $subject = $request->query('asunto');
-
-        return view('pages.contact', [
-            'subject' => array_key_exists($subject, self::SUBJECTS) ? $subject : 'general',
-            'subjects' => self::SUBJECTS,
-        ]);
+        return view('pages.contact');
     }
 
     public function store(Request $request): RedirectResponse
@@ -35,13 +27,25 @@ class ContactController extends Controller
             'pais' => ['nullable', 'string', 'max:4'],
             'telefono' => ['required', 'string', 'max:30'],
             'empresa' => ['nullable', 'string', 'max:120'],
-            'asunto' => ['nullable', 'in:'.implode(',', array_keys(self::SUBJECTS))],
         ]);
 
-        Log::info('Nuevo contacto desde el sitio', $data);
+        $dial = collect(config('kodu.phone_countries'))->firstWhere('code', $data['pais'] ?? 'MX')['dial'] ?? '';
 
-        return redirect()
-            ->route('contact', array_filter(['asunto' => $data['asunto'] ?? null]))
+        $message = ContactMessage::query()->create([
+            'first_name' => $data['nombre'],
+            'last_name' => $data['apellido'],
+            'email' => $data['email'],
+            'phone' => trim($dial.' '.$data['telefono']),
+            'company' => $data['empresa'] ?? null,
+        ]);
+
+        try {
+            Mail::to(config('kodu.notify_email'))->send(new ContactReceived($message));
+        } catch (Throwable $e) {
+            Log::error('No se pudo enviar el aviso de contacto', ['error' => $e->getMessage()]);
+        }
+
+        return redirect()->route('contact')
             ->with('status', 'Gracias, '.$data['nombre'].'. Recibimos tu mensaje y te contactaremos pronto.');
     }
 }

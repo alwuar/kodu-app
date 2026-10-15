@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $subject === 'distribuidor' ? 'Distribuidores' : 'Contacto')
-@section('description', $subject === 'distribuidor'
-    ? 'Vende KODU en tu zona: sin stock mínimo y sin altos volúmenes. Déjanos tus datos y te decimos cómo.'
-    : 'Contacta a KODU para cotizar martillos hidráulicos, accesorios y refacciones. '.config('kodu.contact.phone').' · '.config('kodu.contact.email'))
+@section('title', 'Contacto')
+@section('description', 'Contacta a KODU para cotizar martillos hidráulicos, accesorios y refacciones. '.config('kodu.contact.phone').' · '.config('kodu.contact.email'))
 @section('body_class', 'page-contact')
 
 @php $contact = config('kodu.contact'); @endphp
@@ -12,7 +10,7 @@
     <section class="contact" aria-labelledby="contact-title">
         <div class="container">
             <h1 id="contact-title" class="visually-hidden">
-                {{ $subject === 'distribuidor' ? 'Quiero ser distribuidor KODU' : 'Contacto' }}
+                Contacto
             </h1>
 
             <div class="contact__layout">
@@ -38,7 +36,7 @@
                     </div>
                 </div>
 
-                <x-forms.contact :subject="$subject" class="contact__form" />
+                <x-forms.contact class="contact__form" />
             </div>
         </div>
     </section>

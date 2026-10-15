@@ -39,6 +39,19 @@
         }
     }
 
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+
+        @include up(xl) {
+            order: 3;
+            margin-top: 4px;
+            margin-left: 18px;
+        }
+    }
+
     &__toggle {
         display: inline-flex;
         align-items: center;
@@ -90,7 +103,9 @@
 
     // Escritorio: links en línea
     @include up(xl) {
+        order: 2;
         margin-top: 7px;
+        margin-left: auto;
 
         &__list {
             display: flex;
@@ -136,5 +151,40 @@
             font-size: 16px;
             border-bottom: 1px solid rgba(127, 127, 127, .2);
         }
+    }
+}
+
+// Ícono del carrito
+.cart-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: color .2s $ease;
+
+    @include hover {
+        color: $red;
+    }
+
+    &.is-active {
+        color: $red;
+    }
+
+    &__count {
+        position: absolute;
+        top: 3px;
+        right: 1px;
+        min-width: 17px;
+        height: 17px;
+        padding: 0 4px;
+        border-radius: 9px;
+        background: $red;
+        color: $white;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 17px;
+        text-align: center;
     }
 }
