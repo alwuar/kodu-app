@@ -1,0 +1,42 @@
+{
+  "resources/fonts/geist-latin.woff2": {
+    "file": "assets/geist-latin-DqruVbew.woff2",
+    "src": "resources/fonts/geist-latin.woff2"
+  },
+  "resources/js/admin.js": {
+    "file": "assets/admin-EybuUXSZ.js",
+    "name": "admin",
+    "src": "resources/js/admin.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DnTICGlR.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/scss/admin.scss": {
+    "file": "assets/admin-DQ-aj8Rt.css",
+    "name": "admin",
+    "names": [
+      "admin.css"
+    ],
+    "src": "resources/scss/admin.scss",
+    "isEntry": true,
+    "assets": [
+      "assets/geist-latin-DqruVbew.woff2"
+    ]
+  },
+  "resources/scss/app.scss": {
+    "file": "assets/app-CJiLUj7x.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/scss/app.scss",
+    "isEntry": true,
+    "assets": [
+      "assets/geist-latin-DqruVbew.woff2"
+    ]
+  }
+}
