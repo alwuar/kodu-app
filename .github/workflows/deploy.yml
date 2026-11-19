@@ -1,0 +1,138 @@
+name: Deploy
+
+# Despliega en el cPanel del entorno elegido.
+#  - push a main  -> producción (cPanel del cliente)
+#  - manual       -> Actions > Deploy > Run workflow (elige staging o production)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Entorno a desplegar"
+        type: choice
+        options: [production, staging]
+        default: staging
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment || 'production' }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer:v2
+          coverage: none
+
+      - name: Dependencias PHP (sin dev)
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
+
+      - name: Node 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Compilar assets (Vite)
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Configurar SSH
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if ! ssh-keyscan -T 15 -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null; then
+            echo "::error::No se pudo conectar por SSH al servidor (revisa SSH_HOST y SSH_PORT, o que el firewall permita SSH desde fuera)"
+            exit 1
+          fi
+          cat > ~/.ssh/config <<EOF
+          Host deploy-target
+            HostName $SSH_HOST
+            Port $SSH_PORT
+            User ${{ secrets.SSH_USER }}
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            ServerAliveInterval 30
+          EOF
+
+      - name: Verificar carpeta destino (protección)
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        # Se niega a desplegar si DEPLOY_PATH es el home de la cuenta, está fuera de él,
+        # o es una carpeta con contenido que no fue creada por este despliegue.
+        run: |
+          ssh deploy-target "DEPLOY_PATH='$DEPLOY_PATH' bash -s" <<'EOF'
+          set -eu
+          T="${DEPLOY_PATH%/}"
+          case "$T" in
+            ""|"/"|"$HOME") echo "::error::DEPLOY_PATH ($T) no puede ser el home de la cuenta. Usa una subcarpeta, p. ej. $HOME/kodu"; exit 1 ;;
+            "$HOME"/*/*|"$HOME"/*) ;;
+            *) echo "::error::DEPLOY_PATH ($T) debe estar dentro de $HOME"; exit 1 ;;
+          esac
+          mkdir -p "$T"
+          if [ "$(cd "$T" && pwd -P)" = "$(cd "$HOME" && pwd -P)" ]; then
+            echo "::error::DEPLOY_PATH apunta al home de la cuenta"; exit 1
+          fi
+          if [ ! -f "$T/.deploy-target" ]; then
+            extra=$(ls -A "$T" | grep -vx '.env' || true)
+            if [ -n "$extra" ]; then
+              echo "::error::$T ya tiene archivos y no es una carpeta de despliegue. No se toca."
+              exit 1
+            fi
+            touch "$T/.deploy-target"
+          fi
+          echo "Destino OK: $T"
+          EOF
+
+      - name: Modo mantenimiento
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          PHP_BIN: ${{ vars.PHP_BIN }}
+        run: |
+          ssh deploy-target "cd '$DEPLOY_PATH' && \
+            if [ -f deploy/remote.sh ]; then PHP_BIN='$PHP_BIN' bash deploy/remote.sh down; fi"
+
+      - name: Subir archivos (rsync)
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          rsync -az --delete \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/node_modules/' \
+            --exclude='/tests/' \
+            --exclude='/.env' \
+            --exclude='/.deploy-target' \
+            --exclude='/storage/' \
+            --exclude='/public/storage' \
+            --exclude='/bootstrap/cache/*.php' \
+            ./ "deploy-target:$DEPLOY_PATH/"
+
+      - name: Migraciones, caché y volver a línea
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          PHP_BIN: ${{ vars.PHP_BIN }}
+        run: ssh deploy-target "PHP_BIN='$PHP_BIN' bash '$DEPLOY_PATH/deploy/remote.sh'"
+
+      - name: Comprobar que el sitio responde
+        if: ${{ vars.APP_URL != '' }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -L "${{ vars.APP_URL }}")
+          echo "HTTP $code"
+          [ "$code" -lt 500 ]
