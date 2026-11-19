@@ -99,7 +99,7 @@ cPanel → **Trabajos de Cron**, cada minuto:
 
 ### 6. Secrets en GitHub
 
-Repo → **Settings → Environments** → crea `production` (y `staging` para kodu.agenciavandu.com). En cada uno:
+Repo → **Settings → Environments** → crea `deploy` (y `staging` para kodu.agenciavandu.com). En cada uno:
 
 **Secrets**
 
@@ -118,7 +118,7 @@ Repo → **Settings → Environments** → crea `production` (y `staging` para k
 | `APP_URL` | Al final se comprueba que el sitio responda sin error 500 |
 | `PHP_BIN` | Solo si el PHP 8.3 no está en `/opt/cpanel/ea-php83/root/usr/bin/php` |
 
-Opcional en `production`: **Required reviewers** para aprobar cada despliegue a producción con un clic.
+Opcional en `deploy`: **Required reviewers** para aprobar cada despliegue a producción con un clic.
 
 ### 7. Primer despliegue
 

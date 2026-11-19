@@ -11,17 +11,17 @@ on:
       environment:
         description: "Entorno a desplegar"
         type: choice
-        options: [production, staging]
-        default: staging
+        options: [deploy]
+        default: deploy
 
 concurrency:
-  group: deploy-${{ github.event.inputs.environment || 'production' }}
+  group: deploy-${{ github.event.inputs.environment || 'deploy' }}
   cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'production' }}
+    environment: ${{ github.event.inputs.environment || 'deploy' }}
     timeout-minutes: 20
 
     steps:
